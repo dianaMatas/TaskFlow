@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskFlow — Умный Менеджер</title>
+
+
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="particles-bg"></canvas>
+
+  <div id="particles-js"></div>
+
+  <header>
+    <nav class="nav-bar">
+      <a href="#" class="logo" aria-label="TaskFlow Logo">
+        <svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TaskFlow Logo">
+          <text x="70" y="42" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif" font-weight="600" font-size="32" fill="#a1b293" style="letter-spacing: 1.5px" >
+            TaskFlow
+          </text>
+          <rect x="10" y="10" width="40" height="40" rx="6" ry="6" fill="#4e5b2c" />
+          <line x1="10" y1="20" x2="50" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="18" y1="7" x2="18" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="42" y1="7" x2="42" y2="20" stroke="#a1b293" stroke-width="3" />
+          <polyline points="20,33 28,41 38,23" fill="none" stroke="#a1b293" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#" class="active">Главная</a></li>
+        <li><a href="dashboard.html">Задачи</a></li>
+        <li><a href="lk.html">Профиль</a></li>
+      </ul>
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <span id="icon-sun" class="theme-icon">
+          <!-- Солнце -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="4"/>
+            <line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </span>
+        <span id="icon-moon" class="theme-icon" style="display: none;">
+          <!-- Луна -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 000 18A9 9 0 0021 12.79z"/>
+          </svg>
+        </span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text" data-aos="fade-right">
+        <h1>TaskFlow</h1>
+        <p>Организуй задачи. Управляй карьерой. Будь эффективным.</p>
+      </div>
+      <div class="hero-image" data-aos="fade-left">
+        <img src="https://i.pinimg.com/736x/77/44/3e/77443e8ccb93985d39e9e8673c44d228.jpg" alt="Hero Illustration" />
+      </div>
+    </section>
+
+    <!-- Counters Section -->
+    <section class="counters">
+      <div class="counter-item" data-aos="zoom-in">
+        <span class="counter" data-target="35">0</span>+
+        <p>Партнёрских компаний</p>
+      </div>
+      <div class="counter-item" data-aos="zoom-in" data-aos-delay="100">
+        <span class="counter" data-target="120">0</span>+
+        <p>Созданных досок</p>
+      </div>
+      <div class="counter-item" data-aos="zoom-in" data-aos-delay="200">
+        <span class="counter" data-target="5000">0</span>+
+        <p>Пользователей</p>
+      </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story" data-aos="fade-up">
+      <h2>Наша история</h2>
+      <p>
+        TaskFlow родился из желания упростить организацию задач для студентов, фрилансеров и команд.
+        Это не просто трекер задач — это умный помощник, который помогает двигаться к целям.
+      </p>
+      <p>
+        Интуитивный интерфейс, гибкие доски и мощный анализ — всё в одном месте. Присоединяйся к революции продуктивности!
+      </p>
+      <a href="#" class="btn-primary" id="login-btn">Попробовать бесплатно</a>
+
+    </section>
+<section class="reviews-modern" id="reviews">
+<section class="cloudy-testimonials">
+
+  <h2 class="reviews-title" data-aos="fade-down">Отзывы пользователей</h2>
+  <div class="reviews-container">
+    <div class="review-card" data-aos="zoom-in" data-aos-delay="100">
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="#6d8559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 21H5a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12zM23 21h-4a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12z"/>
+      </svg>
+      <p>“TaskFlow — находка! Всё просто и по делу. Использую каждый день.”</p>
+      <div class="review-author">
+        <img src="https://i.pinimg.com/736x/92/9d/af/929daf2ea50b3e4008a41fd11d2af748.jpg" alt="Анна Смирнова">
+        <div>
+          <strong>Анна Смирнова</strong>
+          <span>Проектный менеджер</span>
+        </div>
+      </div>
+    </div>
+    <div class="review-card" data-aos="zoom-in" data-aos-delay="200">
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="#6d8559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 21H5a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12zM23 21h-4a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12z"/>
+      </svg>
+      <p>“Очень помог при работе над дипломом — всё организовано!”</p>
+      <div class="review-author">
+        <img src="https://i.pinimg.com/736x/32/29/0d/32290da1a9ede858c37028748a4aeb70.jpg" alt="Иван Козлов">
+        <div>
+          <strong>Иван Козлов</strong>
+          <span>Студент</span>
+        </div>
+      </div>
+    </div>
+    <div class="review-card" data-aos="zoom-in" data-aos-delay="300">
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="#6d8559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 21H5a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12zM23 21h-4a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4h4v12z"/>
+      </svg>
+      <p>“Пользуюсь TaskFlow с начала запуска — отличный сервис, радует обновлениями.”</p>
+      <div class="review-author">
+        <img src="https://i.pinimg.com/736x/4a/5c/da/4a5cda9402830dd6d26359b4b0c236b7.jpg" alt="Дарья Белова">
+        <div>
+          <strong>Дарья Белова</strong>
+          <span>UX-дизайнер</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cloudy-review active">...</div>
+</section>
+
+
+  </main>
+
+  <footer>
+    <p>© 2025 TaskFlow. Все права защищены.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+  document.getElementById("login-btn").onclick = function (e) {
+    e.preventDefault();
+    localStorage.setItem("isLoggedIn", "true");
+    window.location.href = "dashboard.html";
+  };
+</script>
+
+</body>
+</html>

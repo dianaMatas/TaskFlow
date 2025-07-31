@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный кабинет | TaskFlow Pro</title>
+  <link rel="stylesheet" href="lk.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body class="dark">
+  <div class="floating-particles" id="particles"></div>
+  
+  <header>
+    <nav class="nav-bar">
+      <a href="index.html" class="logo" aria-label="TaskFlow Logo">
+        <svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TaskFlow Logo">
+          <text x="70" y="42" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif" font-weight="600" font-size="32" fill="#a1b293" style="letter-spacing: 1.5px">
+            TaskFlow
+          </text>
+          <rect x="10" y="10" width="40" height="40" rx="6" ry="6" fill="#4e5b2c" />
+          <line x1="10" y1="20" x2="50" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="18" y1="7" x2="18" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="42" y1="7" x2="42" y2="20" stroke="#a1b293" stroke-width="3" />
+          <polyline points="20,33 28,41 38,23" fill="none" stroke="#a1b293" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="dashboard.html">Задачи</a></li>
+        <li><a href="lk.html" class="active">Профиль</a></li>
+      </ul>
+      
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <span id="icon-sun" class="theme-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="4"/>
+            <line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </span>
+        <span id="icon-moon" class="theme-icon" style="display: none;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 000 18A9 9 0 0021 12.79z"/>
+          </svg>
+        </span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="dashboard-container">
+    <section class="profile-section animate__animated animate__fadeIn">
+      <div class="user-avatar">👤</div>
+      <div class="user-info">
+        <h2>Иван Иванов</h2>
+        <p>Email: ivan@example.com</p>
+        <p class="subscription-status">Подписка: <strong>Free</strong></p>
+        <button class="btn-pro" onclick="showProModal()">Оформить Pro-подписку</button>
+      </div>
+      <button id="edit-profile-btn" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 8px;">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        Редактировать профиль
+      </button>
+
+      <form id="edit-profile-form" class="hidden" aria-label="Форма редактирования профиля">
+        <div class="form-group">
+          <label for="edit-name">Ваше имя</label>
+          <input type="text" id="edit-name" placeholder="Введите ваше имя" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-email">Электронная почта</label>
+          <input type="email" id="edit-email" placeholder="email@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-avatar">Эмодзи-аватар</label>
+          <input type="text" id="edit-avatar" placeholder="😊" maxlength="2">
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" id="cancel-edit-btn" class="btn-secondary">
+            Отмена
+          </button>
+          <button type="submit" class="btn-primary">
+            Сохранить изменения
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="usage-section animate__animated animate__fadeIn animate__delay-1s">
+      <h3>Статистика использования</h3>
+      <div class="usage-controls">
+        <button class="usage-period active" data-period="day">Сегодня</button>
+        <button class="usage-period" data-period="week">Неделя</button>
+        <button class="usage-period" data-period="month">Месяц</button>
+      </div>
+      
+      <div class="usage-stats">
+        <div class="stat-card">
+          <h4>ИИ-запросы</h4>
+          <div class="stat-value" id="ai-requests">3/5</div>
+          <div class="usage-bar">
+            <div class="used" style="width: 60%;"></div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h4>Выполнено задач</h4>
+          <div class="stat-value" id="completed-tasks">12</div>
+          <div class="usage-bar">
+            <div class="used" style="width: 45%; background: var(--gradient-inprogress);"></div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h4>Продуктивность</h4>
+          <div class="stat-value" id="productivity">78%</div>
+          <div class="usage-bar">
+            <div class="used" style="width: 78%; background: var(--gradient-primary);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="locked-features animate__animated animate__fadeIn animate__delay-2s">
+      <div class="locked-card" onclick="showProModal()">
+        <div class="blurred">
+          <h4>График продуктивности</h4>
+          <div class="graph-placeholder">📊</div>
+          <p>Анализируйте вашу эффективность по дням и неделям</p>
+        </div>
+        <div class="lock-overlay">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" />
+          </svg>
+          <span>Разблокировать в Pro</span>
+          <button class="btn-pro">Узнать больше</button>
+        </div>
+      </div>
+
+      <div class="locked-card" onclick="showProModal()">
+        <div class="blurred">
+          <h4>ИИ-аналитика</h4>
+          <p>Персональные рекомендации по улучшению продуктивности на основе ваших данных</p>
+          <div class="graph-placeholder">🤖</div>
+        </div>
+        <div class="lock-overlay">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" />
+          </svg>
+          <span>Доступно в Pro-версии</span>
+          <button class="btn-pro">Оформить подписку</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="subscribe-info animate__animated animate__fadeIn animate__delay-3s">
+      <h3>Почему стоит выбрать <span class="pro-badge">PRO</span>?</h3>
+      
+      <div class="pro-features-grid">
+        <div class="pro-feature-card">
+          <div class="feature-icon">🚀</div>
+          <h4>50 ИИ-запросов в день</h4>
+          <p>Вместо 5 в бесплатной версии</p>
+        </div>
+        
+        <div class="pro-feature-card">
+          <div class="feature-icon">📊</div>
+          <h4>Расширенная аналитика</h4>
+          <p>Подробные отчеты о вашей продуктивности</p>
+        </div>
+        
+        <div class="pro-feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Приоритетная очередь</h4>
+          <p>Быстрые ответы от ИИ без ожидания</p>
+        </div>
+        
+        <div class="pro-feature-card">
+          <div class="feature-icon">🔓</div>
+          <h4>Неограниченные проекты</h4>
+          <p>Создавайте сколько угодно задач и подзадач</p>
+        </div>
+      </div>
+      
+      <div class="trial-block">
+        <div class="trial-content">
+          <p class="trial-text">Попробуйте 7 дней бесплатно - никаких обязательств, можно отменить в любой момент</p>
+          <button class="btn-pro trial-btn" onclick="showPaymentModal('trial')">
+            🚀 Начать бесплатный период
+          </button>
+        </div>
+      </div>
+      
+      <button class="btn-pro" onclick="showProModal()">
+        🚀 Перейти на Pro за 199₽/мес
+      </button>
+    </section>
+  </main>
+
+  <!-- Модальное окно выбора тарифа -->
+  <div id="pro-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeProModal()">&times;</button>
+      <h2>Переход на Pro-версию</h2>
+      <div class="pro-plans">
+        <div class="plan-card">
+          <h3>Месячная подписка</h3>
+          <div class="price">199₽<span>/месяц</span></div>
+          <ul>
+            <li>Все Pro-функции</li>
+            <li>7 дней бесплатно</li>
+            <li>Отмена в любой момент</li>
+          </ul>
+          <button class="btn-pro" onclick="selectPlan('monthly')">Выбрать</button>
+        </div>
+        <div class="plan-card popular">
+          <div class="popular-badge">Выгодно</div>
+          <h3>Годовая подписка</h3>
+          <div class="price">1 790₽<span>/год</span></div>
+          <p class="saving">Экономия 598₽</p>
+          <ul>
+            <li>Все Pro-функции</li>
+            <li>30 дней бесплатно</li>
+            <li>2 месяца в подарок</li>
+          </ul>
+          <button class="btn-pro" onclick="selectPlan('yearly')">Выбрать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно оплаты -->
+  <div id="payment-modal" class="modal hidden">
+    <div class="modal-content payment-content">
+      <button class="close-modal" onclick="closePaymentModal()">&times;</button>
+      <h2>Оформление подписки</h2>
+      
+      <div class="card-visual">
+        <div class="card-chip"></div>
+        <div class="card-logo">TaskFlow PRO</div>
+      </div>
+      
+      <form id="payment-form" class="payment-form">
+        <div class="form-group">
+          <label for="card-number">Номер карты</label>
+          <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="card-expiry">Срок действия</label>
+            <input type="text" id="card-expiry" placeholder="MM/ГГ" maxlength="5" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="card-cvc">CVC/CVV</label>
+            <input type="text" id="card-cvc" placeholder="123" maxlength="3" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="card-name">Имя на карте</label>
+          <input type="text" id="card-name" placeholder="IVAN IVANOV" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email-receipt">Email для чека</label>
+          <input type="email" id="email-receipt" placeholder="email@example.com" required>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="closePaymentModal()">
+            Отмена
+          </button>
+          <button type="submit" class="btn-pro">
+            Оплатить подписку
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="lk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</body>
+</html>

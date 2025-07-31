@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskFlow — Панель задач</title>
+  <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="logo-icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="second-page.css" />
+</head>
+<body class="dark">
+  <div class="floating-particles" id="particles"></div>
+  
+  <header>
+    <nav class="nav-bar">
+      <a href="#" class="logo" aria-label="TaskFlow Logo">
+        <svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TaskFlow Logo">
+          <text x="70" y="42" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif" font-weight="600" font-size="32" fill="#a1b293">TaskFlow</text>
+          <rect x="10" y="10" width="40" height="40" rx="6" ry="6" fill="#4e5b2c" />
+          <line x1="10" y1="20" x2="50" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="18" y1="7" x2="18" y2="20" stroke="#a1b293" stroke-width="3" />
+          <line x1="42" y1="7" x2="42" y2="20" stroke="#a1b293" stroke-width="3" />
+          <polyline points="20,33 28,41 38,23" fill="none" stroke="#a1b293" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="dashboard.html" class="active">Задачи</a></li>
+        <li><a href="lk.html">Профиль</a></li>
+      </ul>
+
+      <button id="theme-toggle" type="button" aria-label="Переключить тему">
+        <span id="icon-sun" class="theme-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="4"/>
+            <line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </span>
+        <span id="icon-moon" class="theme-icon" style="display: none;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a1b293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 000 18A9 9 0 0021 12.79z"/>
+          </svg>
+        </span>
+      </button>
+    </nav>
+  </header>
+
+<!-- В секции статистики -->
+<div class="stats-section">
+  <!-- Карточка прогресса -->
+  <div class="stat-card">
+    <div class="stat-header">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9,17L4.5,12.5L5.91,11.09L9,14.17L18.09,5.08L19.5,6.5L9,17Z"/></svg>
+      </div>
+      <h3 class="stat-title">Прогресс</h3>
+    </div>
+    <div class="stat-content">
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-percent" id="progress-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Остальные карточки (срочные, выполненные, AI) остаются без изменений -->
+</div>
+
+      <!-- Карточка срочных задач -->
+      <div class="stat-card urgent">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+          </div>
+          <h3 class="stat-title">Срочные</h3>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="urgent-count">0</div>
+        </div>
+      </div>
+
+      <!-- Карточка выполненных задач -->
+      <div class="stat-card completed">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          </div>
+          <h3 class="stat-title">Выполнено</h3>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="completed-count">0</div>
+        </div>
+      </div>
+
+      <!-- Карточка AI ассистента -->
+      <div class="stat-card ai-assistant full-width-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A2,2 0 0,0 10,4A2,2 0 0,0 12,6A2,2 0 0,0 14,4A2,2 0 0,0 12,2M10.5,7H9V22H11V14H12.5L16,22H18L15,14H18V7H10.5V7Z"/></svg>
+          </div>
+          <h3 class="stat-title">AI Ассистент</h3>
+        </div>
+        <div class="stat-content">
+          <textarea id="ai-task-input" rows="3" placeholder="Опиши задачу..." style="width:100%; margin-bottom:0.5rem;"></textarea>
+          <button id="generate-idea" class="btn-small">✨ Разбить на подзадачи</button>
+          <div class="ai-suggestion" id="ai-suggestion" style="margin-top:1rem; white-space: pre-wrap;">Нажмите кнопку выше</div>
+          <ul id="ai-subtasks-list" style="margin-top: 1rem; padding-left: 1.2rem;"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Доска задач -->
+    <section class="board-section" aria-label="Доска задач">
+      <div class="board-column" id="todo-column">
+        <div class="column-header">
+          <h3>⏳ В ожидании</h3>
+          <span class="task-count" id="todo-count">0</span>
+        </div>
+        <div class="task-list-wrapper">
+          <div class="tasks-container" id="todo-tasks"></div>
+        </div>
+        <button class="add-task-btn" type="button" data-status="todo">+ Добавить задачу</button>
+      </div>
+
+      <div class="board-column" id="inprogress-column">
+        <div class="column-header">
+          <h3>🚀 В работе</h3>
+          <span class="task-count" id="inprogress-count">0</span>
+        </div>
+        <div class="task-list-wrapper">
+          <div class="tasks-container" id="inprogress-tasks"></div>
+        </div>
+        <button class="add-task-btn" type="button" data-status="inprogress">+ Добавить задачу</button>
+      </div>
+
+      <div class="board-column" id="done-column">
+        <div class="column-header">
+          <h3>✅ Выполнено</h3>
+          <span class="task-count" id="done-count">0</span>
+        </div>
+        <div class="task-list-wrapper">
+          <div class="tasks-container" id="done-tasks"></div>
+        </div>
+        <button class="clear-completed" type="button">Очистить</button>
+      </div>
+    </section>
+
+    <!-- Модальное окно добавления задачи -->
+    <div class="modal" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+      <div class="modal-content">
+        <button class="close-modal" type="button" aria-label="Закрыть">&times;</button>
+        <h2 id="task-modal-title">Новая задача</h2>
+        <form id="task-form">
+          <div class="form-group">
+            <label for="task-title">Название*</label>
+            <input type="text" id="task-title" required placeholder="Сделать презентацию" />
+          </div>
+          <div class="form-group">
+            <label for="task-desc">Описание</label>
+            <textarea id="task-desc" placeholder="Детали задачи..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="task-date">Срок</label>
+              <input type="date" id="task-date" />
+            </div>
+            <div class="form-group">
+              <label for="task-priority">Приоритет</label>
+              <select id="task-priority">
+                <option value="low">Низкий</option>
+                <option value="medium" selected>Средний</option>
+                <option value="high">Высокий</option>
+              </select>
+            </div>
+          </div>
+          <input type="hidden" id="task-status" name="status" value="todo">
+          <button type="submit" class="btn-primary">Добавить задачу</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Плавающая кнопка -->
+    <button class="add-task-float" id="add-task-float" type="button" aria-label="Добавить новую задачу">
+      <svg width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+    </button>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification" role="alert" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 TaskFlow. Все права защищены.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="second-page.js"></script>
+</body>
+</html>
